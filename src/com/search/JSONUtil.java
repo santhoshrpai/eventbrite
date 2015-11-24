@@ -2,6 +2,7 @@ package com.search;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONUtil {
-
 	public static List<Event> getEventsList(String response)
 			throws JSONException, Exception {
 		List<Event> eventList = new ArrayList<Event>();

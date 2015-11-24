@@ -18,12 +18,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class EventOperation {
 
-	// API Keys
-	private static final String key = "IEIB7ASOPLGGBW72Z5";
-	private static final String personalOAuth = "ES7RJYGPUN7KVWZVLT72";
-	private static final String anonOAuth = "OCG567EBYOFD3G7CGGXN";
-	private static final String clientSecret = "DGOQ75ENABK47WJGNMBXGNR7BQ4NFXJFOUST337IIS47ZQNOCZ";
-	private static final String authHeader = "Bearer " + anonOAuth;
+
+	public static final String anonOAuth = "OCG567EBYOFD3G7CGGXN";
+
 
 	public static void main(String[] args) throws Exception {
 		String lat = "51.5034070";
@@ -33,10 +30,9 @@ public class EventOperation {
 				+ "&q=asu&price=free&location.within=1km&location.latitude="
 				+ lat + "&location.longitude=" + lon;
 		List<Event> eventList = allASUEvents(url);
-		System.out.println(eventList.size());
-
+		//System.out.println(eventList.size());
 	}
-
+	
 	public static List<Event> searchByKey(String key, String lat, String lon)
 			throws Exception {
 		String url = "https://www.eventbriteapi.com/v3/events/search?token="
@@ -53,10 +49,10 @@ public class EventOperation {
 
 	// HTTP GET Request: Retrieves events with the keyword "ASU"
 	public static List<Event> allASUEvents(String url) throws Exception {
-		String response = getRespons(url);
-		System.out.println(response);
-		//List<Event> eventList = JSONUtil.getEventsList(response);
-		return null;
+		String response = getRes(url);
+		String jsonResponse = HTMLParser.convertEventToJson(response);
+		List<Event> eventList = HTMLParser.getEventsList(jsonResponse);
+		return eventList;
 	}
 
 	// Send and receive requests and response
@@ -109,7 +105,6 @@ public class EventOperation {
 			stringBuilder.append(line + "\n");
 		}
 		return stringBuilder.toString();
-
 	}
 
 }
